@@ -17,7 +17,7 @@ module.exports = {
       {
         singleQuote: true,
         semi: false,
-        printWidth: 80,
+        printWidth: 90,
         trailingComma: 'none',
         endOfLine: 'auto'
       }
@@ -25,7 +25,7 @@ module.exports = {
     'vue/multi-word-component-names': [
       'warn',
       {
-        iignores: ['index']
+        ignores: ['index']
       }
     ]
   }

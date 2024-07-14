@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useCartStore, useUserStore } from '@/stores/index'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -7,6 +7,11 @@ import { useRouter } from 'vue-router'
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const Router = useRouter()
+
+onMounted(() => {
+  cartStore.GetTotalPrice()
+})
+
 //結帳送出按鈕
 const SummitOrder = async () => {
   await axios.post(
@@ -141,7 +146,7 @@ const SendOut = async () => {
           <div class="FwdInfo col-sm-4">
             <img :src="item.imgUrl" alt="" />
             <div class="des">
-              <p>{{ item.procductName }}</p>
+              <p>{{ item.productName }}</p>
               <p>{{ item.color }}</p>
               <P>{{ item.size }}</P>
             </div>
@@ -161,6 +166,10 @@ const SendOut = async () => {
         </div>
       </div>
       <div class="noItem" v-else>購物車目前沒有商品</div>
+    </div>
+    <div class="TotalPrice">
+      <span>總價: </span><strong>{{ cartStore.TotalPrice }}</strong
+      ><span>元</span>
     </div>
     <div class="customerInfo">
       <div class="left-customer">
@@ -276,6 +285,12 @@ div.Big-box-pay {
       font-size: 25px;
       font-weight: 700;
     }
+  }
+
+  div.TotalPrice {
+    padding-left: 55vw;
+    font-size: 25px;
+    font-weight: 600;
   }
 
   div.customerInfo {

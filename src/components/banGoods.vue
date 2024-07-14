@@ -104,13 +104,19 @@ div.right-content {
         text-decoration: none;
         display: block;
         text-align: center;
+        overflow: hidden;
         img {
           max-width: 100%;
           height: 400px;
+          transition: transform 0.3s ease;
+          &:hover {
+            transform: scale(1.2);
+          }
         }
       }
       .des {
         width: 100%;
+        text-align: center;
         p {
           color: black;
           font-size: 16px;

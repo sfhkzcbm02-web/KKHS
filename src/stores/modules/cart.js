@@ -29,6 +29,7 @@ export const useCartStore = defineStore(
     const DeleteItem = async (id) => {
       await axios.put(`http://localhost:5194/api/ShoppingCart/DeleteItem?Id=${id}`)
       await GetCart()
+      GetTotalPrice()
     }
     //新增商品至購物車
     const NewProductStore = useNewProductStore() //調用close 功能
@@ -71,6 +72,15 @@ export const useCartStore = defineStore(
     const close = () => {
       isopen.value = false
     }
+    //總價格
+    const TotalPrice = ref(0)
+    const GetTotalPrice = () => {
+      let totalPrice = 0
+      for (let i = 0; i < CartInfo.value.length; i++) {
+        totalPrice += CartInfo.value[i].price * CartInfo.value[i].count
+      }
+      TotalPrice.value = totalPrice
+    }
     return {
       isopen,
       open,
@@ -80,7 +90,9 @@ export const useCartStore = defineStore(
       CartCount,
       DeleteItem,
       AddTOcart,
-      AddTOpay
+      AddTOpay,
+      TotalPrice,
+      GetTotalPrice
     }
   },
   {

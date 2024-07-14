@@ -34,7 +34,7 @@ const goPay = () => {
         <div class="img"><img :src="item.imgUrl" alt="" /></div>
         <div class="info-box">
           <div class="info-main">
-            <div>{{ item.procductName }}</div>
+            <div>{{ item.productName }}</div>
             <div>
               <span>{{ item.color }}</span
               ><span>{{ item.size }}</span>

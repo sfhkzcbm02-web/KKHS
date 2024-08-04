@@ -6,8 +6,6 @@ pinia.use(persist)
 
 export default pinia
 
-// import { useUserStore } from './modules/user'
-// export { useUserStore } 下面等於這兩行 會自動導入倒出
 export * from './modules/user'
 export * from './modules/cart'
 export * from './modules/NewProduct'

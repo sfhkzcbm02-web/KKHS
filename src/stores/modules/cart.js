@@ -12,7 +12,7 @@ export const useCartStore = defineStore(
     const CartInfo = ref(0)
     //購物車數量，獲取購物車資料
     const userStore = useUserStore()
-    const CartCount = ref(1)
+    const CartCount = ref(0)
     const GetCart = async () => {
       //有token才執行
       if (userStore.userInformation.token) {

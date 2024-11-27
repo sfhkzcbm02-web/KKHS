@@ -2,6 +2,7 @@
 import { useRoute, onBeforeRouteUpdate, useRouter } from 'vue-router'
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
+import { BaseUrl } from '@/api/base'
 
 const route = useRoute()
 const router = useRouter()
@@ -9,11 +10,11 @@ const GoodsItemList = ref()
 const GoodsTitleList = ref()
 const GoodsTitle = ref()
 const GetGoodsTitleList = async () => {
-  const res = await axios.get('http://localhost:5194/api/Layout/GetTitleList')
+  const res = await axios.get(`${BaseUrl}/api/Layout/GetTitleList`)
   GoodsTitleList.value = res.data.data
 }
 const GetGoodsItemList = async (id = route.params.id) => {
-  const res = await axios.get(`http://localhost:5194/api/Layout/GetGoodsItemList/${id}`)
+  const res = await axios.get(`${BaseUrl}/api/Layout/GetGoodsItemList/${id}`)
   GoodsItemList.value = res.data.data
   //遍歷TitleList 找出當頁的title
   for (let i = 0; i < GoodsTitleList.value.length; i++) {

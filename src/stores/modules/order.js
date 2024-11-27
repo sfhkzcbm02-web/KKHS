@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/index'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { BaseUrl } from '@/api/base'
 
 export const useOrderStore = defineStore('order-store', () => {
   //獲取個人訂單資料
@@ -21,7 +22,7 @@ export const useOrderStore = defineStore('order-store', () => {
   })
   const GetOrderInfo = async () => {
     const res = await axios.get(
-      'http://localhost:5194/api/Order/GetOrderInfoListByToken/GetOrderInfoListByToken',
+      `${BaseUrl}/api/Order/GetOrderInfoListByToken/GetOrderInfoListByToken`,
       {
         headers: {
           Authorization: 'Bearer ' + userStore.userInformation.token

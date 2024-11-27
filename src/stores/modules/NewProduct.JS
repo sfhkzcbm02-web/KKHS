@@ -1,19 +1,20 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
+import { BaseUrl } from '@/api/base'
 
 export const useNewProductStore = defineStore('NewProduc-store', () => {
   //獲取newproduct的資料列表
   const NewList = ref(0)
   const getNewList = async () => {
-    const res = await axios.get('http://localhost:5194/api/Layout/GetList')
+    const res = await axios.get(`${BaseUrl}/api/Layout/GetList`)
     NewList.value = res.data
   }
   //獲取newproduct的DATAIL 資料
   const OpenInfo = ref(0)
   const getOpenInfo = async (id) => {
     isShow.value = true
-    const res = await axios.get(`http://localhost:5194/api/Layout/${id}`)
+    const res = await axios.get(`${BaseUrl}/api/Layout/${id}`)
     OpenInfo.value = res.data
     OpenInfo.value.color = OpenInfo.value.color.split(',')
     Color.value = OpenInfo.value.color[0]

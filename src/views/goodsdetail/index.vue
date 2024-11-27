@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useCartStore, useUserStore } from '@/stores/index'
+import { BaseUrl } from '@/api/base'
 
 const CartStore = useCartStore()
 const UserStore = useUserStore()
@@ -10,7 +11,7 @@ const Info = ref(0)
 const route = useRoute()
 const router = useRouter()
 const GetInfo = async (id = route.params.id) => {
-  const res = await axios.get(`http://localhost:5194/api/Layout/${id}`)
+  const res = await axios.get(`${BaseUrl}/api/Layout/${id}`)
   Info.value = res.data
   Info.value.color = Info.value.color.split(',')
   Info.value.size = Info.value.size.split(',')

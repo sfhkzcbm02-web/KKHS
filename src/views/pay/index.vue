@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import { useCartStore, useUserStore } from '@/stores/index'
 import axios from 'axios'
 import { useRouter, useRoute } from 'vue-router'
+import { BaseUrl } from '@/api/base'
 
 const cartStore = useCartStore()
 const userStore = useUserStore()
@@ -16,7 +17,7 @@ onMounted(() => {
 //結帳送出按鈕
 const SummitOrder = async () => {
   await axios.post(
-    'http://localhost:5194/api/ShoppingCart/SummitOrder',
+    `${BaseUrl}/api/ShoppingCart/SummitOrder`,
     {
       customerName: customerInfoModel.value.name,
       customerPhone: customerInfoModel.value.tel,
@@ -128,31 +129,31 @@ const SendOut = async () => {
 }
 
 //門市選擇post功能
-const createHiddenInput = (form, name, value) => {
-  const hiddenField = document.createElement('input')
-  hiddenField.type = 'hidden'
-  hiddenField.name = name
-  hiddenField.value = value
-  form.appendChild(hiddenField)
-}
+// const createHiddenInput = (form, name, value) => {
+//   const hiddenField = document.createElement('input')
+//   hiddenField.type = 'hidden'
+//   hiddenField.name = name
+//   hiddenField.value = value
+//   form.appendChild(hiddenField)
+// }
 
-const handleGetStore = () => {
-  const form = document.createElement('form')
-  form.method = 'POST'
-  form.action = 'https://logistics-stage.ecpay.com.tw/Express/map' // 這是測試的網址，文件上會寫正式的是哪個網址http://localhost:5194/api/Test/RedirectToExternal/123
-  createHiddenInput(form, 'MerchantID', '	2000132')
-  createHiddenInput(form, 'LogisticsType', 'CVS')
-  createHiddenInput(form, 'LogisticsSubType', 'FAMI')
-  createHiddenInput(form, 'IsCollection', 'Y')
-  createHiddenInput(
-    form,
-    'ServerReplyURL',
-    'http://localhost:5194/api/Test/RedirectToExternal/redirect-to-external'
-  )
-  document.body.appendChild(form)
-  form.submit()
-  // 嘗試
-}
+// const handleGetStore = () => {
+//   const form = document.createElement('form')
+//   form.method = 'POST'
+//   form.action = 'https://logistics-stage.ecpay.com.tw/Express/map' // 這是測試的網址，文件上會寫正式的是哪個網址http://localhost:5194/api/Test/RedirectToExternal/123
+//   createHiddenInput(form, 'MerchantID', '	2000132')
+//   createHiddenInput(form, 'LogisticsType', 'CVS')
+//   createHiddenInput(form, 'LogisticsSubType', 'FAMI')
+//   createHiddenInput(form, 'IsCollection', 'Y')
+//   createHiddenInput(
+//     form,
+//     'ServerReplyURL',
+//     `${BaseUrl}/api/Test/RedirectToExternal/redirect-to-external`
+//   )
+//   document.body.appendChild(form)
+//   form.submit()
+//   // 嘗試
+// }
 </script>
 <template>
   <headerTitle></headerTitle>
@@ -241,12 +242,12 @@ const handleGetStore = () => {
             <el-input v-model="deliveryModel.tel" />
           </el-form-item>
           <el-form-item label="門市地址" class="labelset" prop="address" disabled>
-            <el-input v-model="deliveryModel.address" disabled />
-            <img
+            <el-input v-model="deliveryModel.address"/>
+            <!-- <img
               src="C:\Users\hanso\OneDrive\桌面\web-app\src\assets\uploads\seven-eleven.gif"
               alt=""
-            />
-            <el-button @click="handleGetStore">選擇門市</el-button>
+            /> -->
+            <!-- <el-button @click="handleGetStore">選擇門市</el-button> -->
           </el-form-item>
           <el-checkbox label="送貨資料與顧客資料相同" v-model="isChecked" />
         </el-form>

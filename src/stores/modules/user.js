@@ -2,14 +2,14 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-
+import { BaseUrl } from '@/api/base'
 export const useUserStore = defineStore(
   'user-store',
   () => {
     //註冊相關服務
     const userInformation = ref(0)
     const SingUp = async (username, account, password, tel, email) => {
-      const res = await axios.post('http://localhost:5194/api/User/register', {
+      const res = await axios.post(`${BaseUrl}/api/User/register`, {
         userName: username,
         accountNumber: account,
         password: password,
@@ -42,7 +42,7 @@ export const useUserStore = defineStore(
     //登入相關服務
     const SingIn = async (account, password) => {
       const res = await axios.get(
-        `http://localhost:5194/api/User/login?account=${account}&password=${password}`
+        `${BaseUrl}/api/User/login?account=${account}&password=${password}`
       )
       userInformation.value = res.data
     }

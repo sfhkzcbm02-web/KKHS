@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { useNewProductStore } from '@/stores/index'
 import { useUserStore } from '@/stores/index'
 import router from '@/router'
+import { BaseUrl } from '@/api/base'
 
 export const useCartStore = defineStore(
   'cart-store',
@@ -16,7 +17,7 @@ export const useCartStore = defineStore(
     const GetCart = async () => {
       //有token才執行
       if (userStore.userInformation.token) {
-        const res = await axios.get('http://localhost:5194/api/ShoppingCart/GetCart', {
+        const res = await axios.get(`${BaseUrl}/api/ShoppingCart/GetCart`, {
           headers: {
             Authorization: 'Bearer ' + userStore.userInformation.token
           }
@@ -27,7 +28,7 @@ export const useCartStore = defineStore(
     }
     //購物車刪除
     const DeleteItem = async (id) => {
-      await axios.put(`http://localhost:5194/api/ShoppingCart/DeleteItem?Id=${id}`)
+      await axios.put(`${BaseUrl}/api/ShoppingCart/DeleteItem?Id=${id}`)
       await GetCart()
       GetTotalPrice()
     }
@@ -36,7 +37,7 @@ export const useCartStore = defineStore(
     const AddTOcart = async (id, count, color, size) => {
       if (userStore.userInformation.token) {
         await axios.post(
-          'http://localhost:5194/api/ShoppingCart/AddTOcart',
+          `${BaseUrl}/api/ShoppingCart/AddTOcart`,
           {
             productId: id,
             count: count,

@@ -1,0 +1,1 @@
+export let BaseUrl = 'https://kkhs-api20241127143611.azurewebsites.net'

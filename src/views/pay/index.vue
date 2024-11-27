@@ -2,11 +2,12 @@
 import { ref, watch, onMounted } from 'vue'
 import { useCartStore, useUserStore } from '@/stores/index'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const Router = useRouter()
+const Route = useRoute()
 
 onMounted(() => {
   cartStore.GetTotalPrice()
@@ -73,7 +74,7 @@ const customerrules = {
 const deliveryModel = ref({
   name: '',
   tel: '',
-  address: ''
+  address: Route.query.CVSAddress
 })
 const resetDeliveryModel = () => {
   deliveryModel.value.name = ''
@@ -94,7 +95,7 @@ const deliveryrules = {
       trigger: 'blur'
     }
   ],
-  address: [{ required: true, message: '請輸入姓名', trigger: 'blur' }]
+  address: [{ required: true, message: '請選擇門市地址', trigger: 'blur' }]
 }
 const FormCustomer = ref()
 const Formdelivery = ref()
@@ -124,6 +125,33 @@ const SendOut = async () => {
     console.error('驗證過程中出現錯誤：', error)
     alert('輸入資料有誤或是無購買商品')
   }
+}
+
+//門市選擇post功能
+const createHiddenInput = (form, name, value) => {
+  const hiddenField = document.createElement('input')
+  hiddenField.type = 'hidden'
+  hiddenField.name = name
+  hiddenField.value = value
+  form.appendChild(hiddenField)
+}
+
+const handleGetStore = () => {
+  const form = document.createElement('form')
+  form.method = 'POST'
+  form.action = 'https://logistics-stage.ecpay.com.tw/Express/map' // 這是測試的網址，文件上會寫正式的是哪個網址http://localhost:5194/api/Test/RedirectToExternal/123
+  createHiddenInput(form, 'MerchantID', '	2000132')
+  createHiddenInput(form, 'LogisticsType', 'CVS')
+  createHiddenInput(form, 'LogisticsSubType', 'FAMI')
+  createHiddenInput(form, 'IsCollection', 'Y')
+  createHiddenInput(
+    form,
+    'ServerReplyURL',
+    'http://localhost:5194/api/Test/RedirectToExternal/redirect-to-external'
+  )
+  document.body.appendChild(form)
+  form.submit()
+  // 嘗試
 }
 </script>
 <template>
@@ -212,8 +240,13 @@ const SendOut = async () => {
           <el-form-item label="手機號碼" class="labelset" prop="tel">
             <el-input v-model="deliveryModel.tel" />
           </el-form-item>
-          <el-form-item label="送貨地址" class="labelset" prop="address">
-            <el-input v-model="deliveryModel.address" />
+          <el-form-item label="門市地址" class="labelset" prop="address" disabled>
+            <el-input v-model="deliveryModel.address" disabled />
+            <img
+              src="C:\Users\hanso\OneDrive\桌面\web-app\src\assets\uploads\seven-eleven.gif"
+              alt=""
+            />
+            <el-button @click="handleGetStore">選擇門市</el-button>
           </el-form-item>
           <el-checkbox label="送貨資料與顧客資料相同" v-model="isChecked" />
         </el-form>
@@ -318,6 +351,9 @@ div.Big-box-pay {
       .el-form {
         .el-form-item {
           margin-top: 35px;
+          img {
+            width: 25px;
+          }
         }
         .labelset .el-form-item__label {
           color: black;

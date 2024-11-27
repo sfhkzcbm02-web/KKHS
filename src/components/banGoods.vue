@@ -85,7 +85,7 @@ div.right-content {
   right: -20%;
 
   .banner img {
-    max-width: 100%;
+    width: 100%;
   }
 
   .goods {
@@ -151,6 +151,21 @@ div.right-content {
   div.right-content {
     width: 100%;
     right: 0;
+
+    .banner {
+      img {
+        height: 45vh;
+      }
+    }
+
+    .good {
+      .goods-item-new {
+        a {
+          img {
+          }
+        }
+      }
+    }
   }
 }
 </style>

@@ -242,7 +242,7 @@ const SendOut = async () => {
             <el-input v-model="deliveryModel.tel" />
           </el-form-item>
           <el-form-item label="門市地址" class="labelset" prop="address" disabled>
-            <el-input v-model="deliveryModel.address"/>
+            <el-input v-model="deliveryModel.address" />
             <!-- <img
               src="C:\Users\hanso\OneDrive\桌面\web-app\src\assets\uploads\seven-eleven.gif"
               alt=""

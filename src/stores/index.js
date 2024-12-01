@@ -6,9 +6,9 @@ pinia.use(persist)
 
 export default pinia
 
-export * from './modules/user'
-export * from './modules/cart'
-export * from './modules/NewProduct'
-export * from './modules/product'
-export * from './modules/search'
-export * from './modules/order'
+export * from './modules/user.js'
+export * from './modules/cart.js'
+export * from './modules/NewProduct.js'
+export * from './modules/product.js'
+export * from './modules/search.js'
+export * from './modules/order.js'

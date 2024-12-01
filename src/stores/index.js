@@ -1,14 +1,15 @@
 import { createPinia } from 'pinia'
 import persist from 'pinia-plugin-persistedstate'
+import { useNewProductStore } from '@/stores/modules/'
 
 const pinia = createPinia()
 pinia.use(persist)
 
 export default pinia
 
-export * from './modules/user.js'
-export * from './modules/cart.js'
-export * from './modules/NewProduct.js'
-export * from './modules/product.js'
-export * from './modules/search.js'
-export * from './modules/order.js'
+export * from './modules/user'
+export * from './modules/cart'
+export * from './modules/product'
+export * from './modules/search'
+export * from './modules/order'
+export { useNewProductStore }

@@ -1,6 +1,6 @@
 import { createPinia } from 'pinia'
 import persist from 'pinia-plugin-persistedstate'
-import { useNewProductStore } from '@/stores/modules/'
+import { useNewProductStore } from '@/stores/modules/NewProduct'
 
 const pinia = createPinia()
 pinia.use(persist)
